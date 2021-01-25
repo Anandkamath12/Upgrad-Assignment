@@ -1,0 +1,30 @@
+package org.upgrad.upstac;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.ApplicationPidFileWriter;
+
+import java.io.File;
+
+
+@SpringBootApplication
+public class UpstacApplication {
+
+	private static final Logger log = LoggerFactory.getLogger(UpstacApplication.class);
+	//public static Logger log;
+
+	public static void main(String[] args) {
+//		SpringApplication.run(UpstacApplication.class, args);
+
+		String fileName = System.getProperty("user.home") + File.separator + "upstacApp.pid";
+		SpringApplication application = new SpringApplication(UpstacApplication.class);
+		log.info("Updated Process Id is available on "+fileName);
+		application.addListeners(new ApplicationPidFileWriter(fileName));
+		application.run();
+	}
+
+
+
+}
